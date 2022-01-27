@@ -77,8 +77,8 @@ PHP 8.1.2 Linux(x86_64)
 | ClassWithObject{"EmptyClass{}"}                    | 1,495                   | 144               | 96                      |
 
 ### :warning: Restrictions
-* objects - you need to use var_sizeof() with var_class_sizeof() to calculate total variable size because class structure load once for one class 
-* var_class_sizeof() - function calculate current/parent class properties sizes only. It's not calculate functions sizes in class
+* objects - you need to use var_sizeof() with var_class_sizeof() to calculate total variable size because of class structure load once for a one class 
+* var_class_sizeof() - function calculate current/parent class properties sizes only. It's not calculate functions sizes in a class
 * resource/callable - var_sizeof() calculate only major structures
 
 ## For contributors
