@@ -76,7 +76,7 @@ PHP 8.1.2 Linux(x86_64)
 | ClassWithArray{"array(count: 10,000, list: true)"} | 1,494                   | 262,296           | 528,496                 |
 | ClassWithObject{"EmptyClass{}"}                    | 1,495                   | 144               | 96                      |
 
-### :warning: Restrictions
+### Restrictions :warning:
 * objects - you need to use var_sizeof() with var_class_sizeof() to calculate total variable size because class structure load once for one class 
 * var_class_sizeof() - function calculate current/parent class properties sizes only. It's not calculate functions sizes in class
 * resource/callable - var_sizeof() calculate only major structures
