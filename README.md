@@ -1,7 +1,7 @@
 # PHP var_sizeof()
 
 Function for getting full size of any PHP variable in bytes.<br>
-It must be more accurate tool to calculate total size of PHP variable than **memory_get_usage()**, but it has [restrictions](#restrictions).
+It must be more accurate tool to calculate total size of PHP variable than **memory_get_usage()**, but it has [restrictions](#warning-restrictions).
 
 ### Requirements
 * PHP >= 7.4 (with FFI)
@@ -76,7 +76,7 @@ PHP 8.1.2 Linux(x86_64)
 | ClassWithArray{"array(count: 10,000, list: true)"} | 1,494                   | 262,296           | 528,496                 |
 | ClassWithObject{"EmptyClass{}"}                    | 1,495                   | 144               | 96                      |
 
-### Restrictions :warning:
+### :warning: Restrictions
 * objects - you need to use var_sizeof() with var_class_sizeof() to calculate total variable size because class structure load once for one class 
 * var_class_sizeof() - function calculate current/parent class properties sizes only. It's not calculate functions sizes in class
 * resource/callable - var_sizeof() calculate only major structures
