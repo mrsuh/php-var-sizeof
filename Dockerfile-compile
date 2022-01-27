@@ -1,0 +1,34 @@
+FROM debian:buster-slim
+
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y --no-install-recommends \
+		autoconf \
+		dpkg-dev \
+		file \
+		g++ \
+		gcc \
+		libc-dev \
+		make \
+		pkg-config \
+		re2c \
+		build-essential \
+		bison \
+		libxml2-dev \
+		libffi-dev \
+		libsqlite3-dev \
+		strace;
+
+COPY . /code
+
+WORKDIR /code/php-src
+
+RUN ./buildconf
+RUN ./configure --with-ffi
+RUN make
+RUN make install
+
+RUN ./buildconf
+RUN ./configure --with-ffi
+
+WORKDIR /code

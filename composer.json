@@ -1,0 +1,35 @@
+{
+    "name": "mrsuh/php-var-sizeof",
+    "type": "library",
+    "license": "MIT",
+    "description": "Provides functions for getting full size of any PHP variable",
+    "keywords": [
+        "sizeof",
+        "var_sizeof",
+        "var_class_sizeof",
+        "memory_usage"
+    ],
+    "autoload": {
+        "files": [
+            "functions/var_sizeof.php",
+            "functions/var_class_sizeof.php"
+        ],
+        "psr-4": {
+            "Mrsuh\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sukhachev Anton",
+            "email": "mrsuh6@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-ffi": "*"
+    },
+    "require-dev": {
+        "maddhatter/markdown-table": "^1.0",
+        "phpunit/phpunit": "^9"
+    }
+}
