@@ -97,7 +97,7 @@ $memoryUsage = memory_get_usage() - $memory;
 addCommonRow($tableCommonBuilder, $double, $memoryUsage);
 
 $memory      = memory_get_usage();
-$string      = str_replace('{name}', 'word', 'hello {name}');
+$string      = str_replace('{name}', 'world', 'hello {name}');
 $memoryUsage = memory_get_usage() - $memory;
 addCommonRow($tableCommonBuilder, $string, $memoryUsage);
 
