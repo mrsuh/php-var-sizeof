@@ -61,9 +61,9 @@ PHP 8.1.2 Linux(x86_64)
 | array(count: 100, list: true)                      | 2,128             | 8,248                   |
 | array(count: 1,000, list: true)                    | 16,464            | 36,920                  |
 | array(count: 10,000, list: true)                   | 262,224           | 528,440                 |
-| array(count: 100, list: false)                     | 5,192             | 0                       |
-| array(count: 1,000, list: false)                   | 41,032            | 4,096                   |
-| array(count: 10,000, list: false)                  | 655,432           | 126,976                 |
+| array(count: 100, list: false)                     | 5,192             | 8,248                   |
+| array(count: 1,000, list: false)                   | 41,032            | 41,016                  |
+| array(count: 10,000, list: false)                  | 655,432           | 655,416                 |
 | EmptyClass{}                                       | 72                | 40                      |
 | ClassWithArray{"array(count: 0, list: true)"}      | 408               | 56                      |
 | ClassWithArray{"array(count: 100, list: true)"}    | 2,200             | 8,304                   |
@@ -86,6 +86,14 @@ PHP 8.1.2 Linux(x86_64)
 * resource/callable - `var_sizeof()` calculates only major structures
 
 ## For contributors
+
+### How to reproduce a table of numbers above
+```bash
+git clone git@github.com:mrsuh/php-var-sizeof.git && cd php-var-sizeof
+composer install
+docker build -t image-php-var-sizeof .
+docker run -it --rm --name my-running-script -v "$PWD":/app image-php-var-sizeof php bin/render-table.php
+```
 
 ### How to compile library
 ```bash
