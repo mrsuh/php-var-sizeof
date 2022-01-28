@@ -54,7 +54,7 @@ PHP 8.1.2 Linux(x86_64)
 | boolean(true)                                      | 16                | 0                       |
 | integer(1)                                         | 16                | 0                       |
 | double(1.5)                                        | 16                | 0                       |
-| string("hello")                                    | 21                | 0                       |
+| string("hello word")                               | 26                | 40                      |
 | resource                                           | 48                | 416                     |
 | callable                                           | 72                | 384                     |
 | array(count: 0, list: true)                        | 336               | 0                       |
