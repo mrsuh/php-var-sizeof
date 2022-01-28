@@ -1,6 +1,6 @@
 # PHP var_sizeof()
 
-Function for getting full size of any PHP variable in bytes.<br>
+Function for getting size of any PHP variable in bytes.<br>
 It must be more accurate tool to calculate total size of PHP variable than `memory_get_usage()`, but it has [restrictions](#warning-restrictions).
 
 ### How it works
