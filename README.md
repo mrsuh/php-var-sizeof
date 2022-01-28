@@ -1,12 +1,16 @@
 # PHP var_sizeof()
 
 Function for getting full size of any PHP variable in bytes.<br>
-It must be more accurate tool to calculate total size of PHP variable than **memory_get_usage()**, but it has [restrictions](#warning-restrictions).
+It must be more accurate tool to calculate total size of PHP variable than `memory_get_usage()`, but it has [restrictions](#warning-restrictions).
+
+### How it works
+`var_sizeof()` with `var_class_sizeof()` uses FFI to access internal structures of PHP variables.<br>
+It calculates the size of internal structures such as `zval`, `_zend_array`, `_zend_object`, etc., as well as additional allocated memory for them.<br>
+It doesn't take into calculate the memory of handlers/functions/etc.
 
 ### Requirements
 * PHP >= 7.4 (with FFI)
 * Linux(x86_64) / Darwin(x86_64)
-
 
 ### How to install
 ```bash
@@ -77,9 +81,9 @@ PHP 8.1.2 Linux(x86_64)
 | ClassWithObject{"EmptyClass{}"}                    | 1,495                   | 144               | 96                      |
 
 ### :warning: Restrictions
-* objects - you need to use var_sizeof() with var_class_sizeof() to calculate total variable size because of class structure load once for a one class 
-* var_class_sizeof() - function calculate current/parent class properties sizes only. It's not calculate functions sizes in a class
-* resource/callable - var_sizeof() calculate only major structures
+* objects - you need to use `var_sizeof()` with `var_class_sizeof()` to calculate total variable size because of class structure load once for a one class 
+* `var_class_sizeof()` - function calculate current/parent class properties sizes only. It's not calculate functions sizes in a class
+* resource/callable - `var_sizeof()` calculate only major structures
 
 ## For contributors
 
