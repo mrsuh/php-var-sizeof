@@ -97,7 +97,7 @@ $memoryUsage = memory_get_usage() - $memory;
 addCommonRow($tableCommonBuilder, $double, $memoryUsage);
 
 $memory      = memory_get_usage();
-$string      = 'hello';
+$string      = str_replace('{name}', 'world', 'hello {name}');
 $memoryUsage = memory_get_usage() - $memory;
 addCommonRow($tableCommonBuilder, $string, $memoryUsage);
 
@@ -113,24 +113,24 @@ $memoryUsage = memory_get_usage() - $memory;
 addCommonRow($tableCommonBuilder, $callable, $memoryUsage);
 
 $memory      = memory_get_usage();
-$array0      = [];
+$list0       = [];
 $memoryUsage = memory_get_usage() - $memory;
-addCommonRow($tableCommonBuilder, $array0, $memoryUsage);
+addCommonRow($tableCommonBuilder, $list0, $memoryUsage);
 
 $memory      = memory_get_usage();
-$array100    = array_fill(0, 100, null);
+$list100     = array_fill(0, 100, null);
 $memoryUsage = memory_get_usage() - $memory;
-addCommonRow($tableCommonBuilder, $array100, $memoryUsage);
+addCommonRow($tableCommonBuilder, $list100, $memoryUsage);
 
 $memory      = memory_get_usage();
-$array1000   = array_fill(0, 1000, null);
+$list1000    = array_fill(0, 1000, null);
 $memoryUsage = memory_get_usage() - $memory;
-addCommonRow($tableCommonBuilder, $array1000, $memoryUsage);
+addCommonRow($tableCommonBuilder, $list1000, $memoryUsage);
 
 $memory      = memory_get_usage();
-$array10000  = array_fill(0, 10000, null);
+$list10000   = array_fill(0, 10000, null);
 $memoryUsage = memory_get_usage() - $memory;
-addCommonRow($tableCommonBuilder, $array10000, $memoryUsage);
+addCommonRow($tableCommonBuilder, $list10000, $memoryUsage);
 
 $memory            = memory_get_usage();
 $array100          = array_fill(0, 99, null);

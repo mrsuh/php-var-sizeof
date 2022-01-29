@@ -4,7 +4,7 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 
 RUN install-php-extensions ffi mbstring
 
-COPY . /app
+RUN mkdir /app
 
 RUN groupadd -r ffi && useradd -m -g ffi ffi
 
