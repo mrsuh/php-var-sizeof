@@ -14,7 +14,7 @@ It doesn't take into calculate the memory of handlers/functions/etc.
 
 ### How to install
 ```bash
-composer install mrsuh/php-var-sizeof
+composer require mrsuh/php-var-sizeof
 ```
 
 ### Functions
