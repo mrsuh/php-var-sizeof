@@ -2,7 +2,17 @@
 #include "zend_types.h"
 #include "zend_hash.h"
 #include "zend_string.h"
+#include "spl_array.h"
 #include "ffi.h"
+#include "spl.h"
+
+#if defined(DEBUG)
+#define _DEBUG 1
+#else
+#define _DEBUG 0
+#endif
+
+#define debug_printf(args ...) do { if (_DEBUG) printf(args); } while (0)
 
 int main() {}
 
@@ -29,31 +39,42 @@ int zval_sizeof(zval *zv_ptr) {
             HashTable *ht = value.arr;
             HashPosition pos;
             zval *data;
-            int elementsSize = 0;
+            int size = sizeof(*zv_ptr) + sizeof(*ht);
 
             for (
                     zend_hash_internal_pointer_reset_ex(ht, &pos);
                     (data = zend_hash_get_current_data_ex(ht, &pos)) != NULL;
                     zend_hash_move_forward_ex(ht, &pos)
                     ) {
-                elementsSize += zval_sizeof(data) - sizeof(zval);
+                size += zval_sizeof(data) - sizeof(zval);
             }
 
             int allocSize = 0;
             if (HT_IS_PACKED(ht)) {
-                allocSize = HT_PACKED_SIZE(ht);
+                size += HT_PACKED_SIZE(ht);
             } else {
-                allocSize = HT_SIZE(ht);
+                size += HT_SIZE(ht);
             }
 
-            return sizeof(*zv_ptr) + sizeof(*ht) + allocSize + elementsSize;
+            return size;
         }
 
         case IS_OBJECT: {
             zend_object *object = value.obj;
-            int propertiesSize = properties_sizeof(object->properties_table, object->ce->default_properties_count);
+            int size = sizeof(*zv_ptr);
 
-            return sizeof(*zv_ptr) + sizeof(*object) + propertiesSize;
+            if(object->ce == spl_ce_ArrayIterator) {
+                 spl_array_object *spl_object = spl_array_from_obj(object);
+                 size += sizeof(*spl_object);
+                 size += zval_sizeof(&spl_object->array) - sizeof(zval);
+
+                 return size;
+            }
+
+            size += sizeof(*object);
+            size += properties_sizeof(object->properties_table, object->ce->default_properties_count);
+
+            return size;
         }
     }
 

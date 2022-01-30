@@ -30,6 +30,10 @@ function sdump($var): string
                 $properties[] = sdump($reflectionProperty->getValue($var));
             }
 
+            if($var instanceof \ArrayIterator) {
+                $properties[] = sdump((array)$var);
+            }
+
             return sprintf("%s%s", get_class($var), str_replace(['[', ']'], ['{', '}'], json_encode($properties)));
     }
 
@@ -185,6 +189,24 @@ $classWithObject = new ClassWithObject();
 $memoryUsage     = memory_get_usage() - $memory;
 addCommonRow($tableCommonBuilder, $classWithObject, $memoryUsage);
 addObjectRow($tableObjectBuilder, $classWithObject, $memoryUsage);
+
+$memory          = memory_get_usage();
+$listIterator = new \ArrayIterator();
+for($i = 0;$i < 100; $i++) {
+    $listIterator[] = null;
+}
+$memoryUsage     = memory_get_usage() - $memory;
+addCommonRow($tableCommonBuilder, $listIterator, $memoryUsage);
+addObjectRow($tableObjectBuilder, $listIterator, $memoryUsage);
+
+$memory          = memory_get_usage();
+$arrayIterator = new \ArrayIterator();
+for($i = 0;$i < 100; $i++) {
+    $arrayIterator[sprintf('index%d', $i)] = null;
+}
+$memoryUsage     = memory_get_usage() - $memory;
+addCommonRow($tableCommonBuilder, $arrayIterator, $memoryUsage);
+addObjectRow($tableObjectBuilder, $arrayIterator, $memoryUsage);
 
 echo sprintf("PHP %s %s(%s)\n\n", phpversion(), php_uname('s'), php_uname('m'));
 echo $tableCommonBuilder->render();

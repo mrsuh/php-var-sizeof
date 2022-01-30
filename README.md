@@ -70,6 +70,8 @@ PHP 8.1.2 Linux(x86_64)
 | ClassWithArray{"array(count: 1,000, list: true)"}  | 16,536            | 36,976                  |
 | ClassWithArray{"array(count: 10,000, list: true)"} | 262,296           | 528,496                 |
 | ClassWithObject{"EmptyClass{}"}                    | 144               | 96                      |
+| ArrayIterator{"array(count: 100, list: true)"}     | 2,264             | 8,376                   |
+| ArrayIterator{"array(count: 100, list: false)"}    | 5,328             | 40,376                  |
 
 | type                                               | var_class_sizeof(bytes) | var_sizeof(bytes) | memory_get_usage(bytes) |
 |----------------------------------------------------|-------------------------|-------------------|-------------------------|
@@ -79,11 +81,14 @@ PHP 8.1.2 Linux(x86_64)
 | ClassWithArray{"array(count: 1,000, list: true)"}  | 1,494                   | 16,536            | 36,976                  |
 | ClassWithArray{"array(count: 10,000, list: true)"} | 1,494                   | 262,296           | 528,496                 |
 | ClassWithObject{"EmptyClass{}"}                    | 1,495                   | 144               | 96                      |
+| ArrayIterator{"array(count: 100, list: true)"}     | 2,437                   | 2,264             | 8,376                   |
+| ArrayIterator{"array(count: 100, list: false)"}    | 2,437                   | 5,328             | 40,376                  |
+
 
 ### :warning: Restrictions
-* objects - you need to use `var_sizeof()` with `var_class_sizeof()` to calculate total variable size because of class structure load once for a one class 
-* `var_class_sizeof()` - function calculates current/parent class properties sizes only. It doesn't calculate the sizes of the functions in the class
-* resource/callable - `var_sizeof()` calculates only major structures
+* works correctly only with userland objects and SPL \ArrayIterator
+* doesn't work correctly with complicated structures like extensions/resources/callables/functions
+* to calculate total size of an object you need to use `var_sizeof()` with `var_class_sizeof()`
 
 ## For contributors
 
@@ -101,5 +106,5 @@ cd php-src
 ./buildconf
 ./configure
 cd ..
-make
+make DEBUG=1
 ```
