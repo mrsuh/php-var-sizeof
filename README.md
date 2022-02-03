@@ -1,5 +1,7 @@
 # PHP var_sizeof()
 
+![Tests](https://github.com/mrsuh/php-var-sizeof/actions/workflows/tests.yml/badge.svg)
+
 Function for getting size of any PHP variable in bytes.<br>
 It must be more accurate tool to calculate total size of PHP variable than `memory_get_usage()`, but it has [restrictions](#warning-restrictions).
 
