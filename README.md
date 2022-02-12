@@ -96,7 +96,7 @@ PHP 8.1.2 Linux(x86_64)
 
 ### How to reproduce a table of numbers above
 ```bash
-git clone git@github.com:mrsuh/php-var-sizeof.git && cd php-var-sizeof
+git clone --recurse-submodules git@github.com:mrsuh/php-var-sizeof.git && cd php-var-sizeof
 composer install
 docker build -t image-php-var-sizeof .
 docker run -it --rm --name my-running-script -v "$PWD":/app image-php-var-sizeof php bin/render-table.php
