@@ -12,19 +12,19 @@ class VarInfo
             return;
         }
 
-        if (\php_uname('m') !== 'x86_64') {
-            throw new \RuntimeException('Unsupported machine type');
-        }
+        $platform = strtolower(\php_uname('m'));
+        $operatingSystem = strtolower(\php_uname('s'));
 
-        switch (\php_uname('s')) {
-            case 'Linux':
-                $libraryFileName = 'ffi_linux.so';
-                break;
-            case 'Darwin':
-                $libraryFileName = 'ffi_darwin.dylib';
-                break;
-            default:
-                throw new \RuntimeException('Unsupported operating system');
+        $libraryFilePath = sprintf(
+            "%s/../library/ffi_%s_%s.%s",
+            __DIR__,
+            $operatingSystem,
+            $platform,
+            $operatingSystem === 'linux' ? 'so' : 'dylib'
+        );
+
+        if(!is_file($libraryFilePath)) {
+            throw new \RuntimeException(sprintf('Unsupported system "%s(%s)"', $operatingSystem, $platform));
         }
 
         self::$libc = \FFI::cdef(
@@ -32,7 +32,7 @@ class VarInfo
             int var_sizeof(char *name);
             int var_class_sizeof(char *name);
             ",
-            __DIR__ . "/../library/" . $libraryFileName);
+            $libraryFilePath);
     }
 
     /**
