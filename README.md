@@ -12,7 +12,7 @@ It doesn't take into calculate the memory of handlers/functions/etc.
 
 ### Requirements
 * PHP >= 7.4 (with FFI)
-* Linux(x86_64) / Darwin(x86_64)
+* Linux(x86_64/aarch64) / Darwin(x86_64/arm64)
 
 ### How to install
 ```bash
@@ -104,9 +104,17 @@ docker run -it --rm --name my-running-script -v "$PWD":/app image-php-var-sizeof
 
 ### How to compile library
 ```bash
+git submodule update --init --recursive
 cd php-src
 ./buildconf
-./configure
+./configure --with-ffi --with-iconv=/opt/homebrew/opt/libiconv
 cd ..
+make DEBUG=1
+```
+
+```bash
+docker build -t php-var-sizeof -f Dockerfile-compile .
+docker run -it -v $(pwd)/library:/code/library php-var-sizeof bash
+cd /code
 make DEBUG=1
 ```
